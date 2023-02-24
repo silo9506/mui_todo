@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/silo9506/mui_todo/static/js/main.bc437e8b.js",
-    "static/js/787.63e47474.chunk.js": "/silo9506/mui_todo/static/js/787.63e47474.chunk.js",
-    "index.html": "/silo9506/mui_todo/index.html",
-    "main.bc437e8b.js.map": "/silo9506/mui_todo/static/js/main.bc437e8b.js.map",
-    "787.63e47474.chunk.js.map": "/silo9506/mui_todo/static/js/787.63e47474.chunk.js.map"
+    "main.js": "/mui_todo/static/js/main.abcec129.js",
+    "static/js/787.63e47474.chunk.js": "/mui_todo/static/js/787.63e47474.chunk.js",
+    "index.html": "/mui_todo/index.html",
+    "main.abcec129.js.map": "/mui_todo/static/js/main.abcec129.js.map",
+    "787.63e47474.chunk.js.map": "/mui_todo/static/js/787.63e47474.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.bc437e8b.js"
+    "static/js/main.abcec129.js"
   ]
 }
