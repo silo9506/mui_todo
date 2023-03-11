@@ -129,6 +129,7 @@ const Todos = ({
         <Typography
           onClick={onClick}
           sx={{
+            cursor: "pointer",
             flex: "1",
             textDecorationLine: finish ? "line-through" : "unset",
           }}
