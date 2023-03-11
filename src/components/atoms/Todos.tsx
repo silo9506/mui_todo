@@ -1,4 +1,4 @@
-import React, { ReactEventHandler } from "react";
+import React, { ReactEventHandler, useRef } from "react";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import Checkbox, { CheckboxProps } from "@mui/material/Checkbox";
@@ -94,14 +94,14 @@ const Todos = ({
     } else setEditing(true);
   };
 
-  // const onSubmit = (e: React.SyntheticEvent) => {
-  //   e.preventDefault();
-
-  // };
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onUpdateTodo(id, todo, event.target.checked);
   };
+
+  const onClick = (e: any) => {
+    onUpdateTodo(id, todo, !finish);
+  };
+
   const { darkTheme } = useTheme();
 
   return (
@@ -109,6 +109,9 @@ const Todos = ({
       color="primary"
       bgcolor="primary"
       sx={{
+        "&+&": {
+          borderTop: "2px solid #cdcdcd",
+        },
         display: "flex",
         alignItems: "center",
         padding: "5px",
@@ -124,6 +127,7 @@ const Todos = ({
       />
       {!editing ? (
         <Typography
+          onClick={onClick}
           sx={{
             flex: "1",
             textDecorationLine: finish ? "line-through" : "unset",

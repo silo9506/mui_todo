@@ -208,16 +208,6 @@ function App() {
             flexDirection: "column",
           }}
         >
-          {/* {todoList.map((todo) => (
-            <Todos
-              onUpdateTodo={onUpdateTodo}
-              onDeleteTodo={onDeleteTodo}
-              id={todo.id}
-              todo={todo.todo}
-              finish={todo.finish}
-              key={todo.id}
-            />
-          ))} */}
           {todoList.map((todo) => {
             if (alignment === "All") {
               return (
@@ -231,7 +221,7 @@ function App() {
                 />
               );
             } else if (alignment === "Active") {
-              if (todo.finish === true) {
+              if (todo.finish === false) {
                 return (
                   <Todos
                     onUpdateTodo={onUpdateTodo}
@@ -244,7 +234,7 @@ function App() {
                 );
               }
             } else {
-              if (todo.finish === false) {
+              if (todo.finish === true) {
                 return (
                   <Todos
                     onUpdateTodo={onUpdateTodo}
