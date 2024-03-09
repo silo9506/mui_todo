@@ -37,18 +37,19 @@ function App() {
   const { toggleTheme } = useThemeUpdate();
   const { darkTheme } = useTheme();
 
-  console.log(alignment);
   const todoList = React.useMemo(() => {
-    return todos.map((todo) => {
-      return { ...todo };
-    });
-  }, [todos]);
+    return todos.filter((todo) => {
+      if (alignment === "All") return true;
 
-  const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
-    newAlignment: string | null
-  ) => {
-    console.log(newAlignment);
+      if (alignment === "Active") return todo.finish === false;
+
+      if (alignment === "Completed") return todo.finish === true;
+
+      return false;
+    });
+  }, [todos, alignment]);
+
+  const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
     setAlignment(newAlignment);
   };
 
@@ -61,7 +62,6 @@ function App() {
         return [...prevTodos, { todo, id: v4(), finish: false }];
       });
     setTodo("");
-    console.log(todo);
   };
 
   const onUpdateTodo = (id: string, newTodo: string, finish: boolean) => {
@@ -81,33 +81,26 @@ function App() {
     });
   };
 
-  console.log(todoList);
-
   return (
     <Container
       maxWidth="sm"
       sx={{
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        paddingTop: "40px",
+        paddingTop: "40px"
       }}
     >
       {darkTheme ? (
-        <Background
-          src={require("./asset/img/background01.jpg")}
-          alt="background"
-        />
+        <Background src={require("./asset/img/background01.jpg")} alt="background" />
       ) : (
-        <Background
-          src={require("./asset/img/background02.jpg")}
-          alt="background"
-        />
+        <Background src={require("./asset/img/background02.jpg")} alt="background" />
       )}
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          marginBottom: "16px",
+          marginBottom: "16px"
         }}
       >
         <Typography
@@ -115,7 +108,7 @@ function App() {
           sx={{
             fontWeight: "bold",
             letterSpacing: "10px",
-            color: "primary",
+            color: "primary"
           }}
         >
           TODO
@@ -132,7 +125,7 @@ function App() {
       <Paper
         elevation={0}
         sx={{
-          backgroundColor: "transparent",
+          backgroundColor: "transparent"
         }}
       >
         <Box sx={{ marginBottom: "16px" }}>
@@ -144,8 +137,8 @@ function App() {
               p: "2px 4px",
               display: "flex",
               "& input::placeholder": {
-                color: !darkTheme ? "primary.dark" : "primary.light",
-              },
+                color: !darkTheme ? "primary.dark" : "primary.light"
+              }
             }}
           >
             <InputBase
@@ -153,17 +146,17 @@ function App() {
                 ml: 1,
                 flex: 1,
                 padding: "0px",
-                color: !darkTheme ? "primary.dark" : "primary.light",
+                color: !darkTheme ? "primary.dark" : "primary.light"
               }}
               placeholder="Typing Todos"
-              inputProps={{ "aria-label": "Search Todos" }}
+              inputProps={{ "aria-label": "Search Todos", maxLength: 32 }}
               value={todo}
               onChange={(e) => setTodo(e.target.value)}
             />
             <Button
               type="submit"
               sx={{
-                color: !darkTheme ? "primary.dark" : "primary.light",
+                color: !darkTheme ? "primary.dark" : "primary.light"
               }}
             >
               Add
@@ -174,7 +167,7 @@ function App() {
           sx={{
             display: "flex",
             borderBottom: "2px solid #cdcdcd",
-            backgroundColor: darkTheme ? "primary.dark" : "primary.light",
+            backgroundColor: darkTheme ? "primary.dark" : "primary.light"
           }}
         >
           <ToggleButtonGroup
@@ -190,8 +183,8 @@ function App() {
                 textDecoration: "underline",
                 textUnderlinePosition: "under",
                 textDecorationColor: "white",
-                textDecorationThickness: "2px",
-              },
+                textDecorationThickness: "2px"
+              }
             }}
             onChange={handleChange}
             aria-label="Platform"
@@ -205,51 +198,31 @@ function App() {
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "column"
           }}
         >
-          {todoList.map((todo) => {
-            if (alignment === "All") {
-              return (
-                <Todos
-                  onUpdateTodo={onUpdateTodo}
-                  onDeleteTodo={onDeleteTodo}
-                  id={todo.id}
-                  todo={todo.todo}
-                  finish={todo.finish}
-                  key={todo.id}
-                />
-              );
-            } else if (alignment === "Active") {
-              if (todo.finish === false) {
-                return (
-                  <Todos
-                    onUpdateTodo={onUpdateTodo}
-                    onDeleteTodo={onDeleteTodo}
-                    id={todo.id}
-                    todo={todo.todo}
-                    finish={todo.finish}
-                    key={todo.id}
-                  />
-                );
-              }
-            } else {
-              if (todo.finish === true) {
-                return (
-                  <Todos
-                    onUpdateTodo={onUpdateTodo}
-                    onDeleteTodo={onDeleteTodo}
-                    id={todo.id}
-                    todo={todo.todo}
-                    finish={todo.finish}
-                    key={todo.id}
-                  />
-                );
-              }
-            }
-          })}
+          {todoList.map((todo) => (
+            <Todos
+              onUpdateTodo={onUpdateTodo}
+              onDeleteTodo={onDeleteTodo}
+              id={todo.id}
+              todo={todo.todo}
+              finish={todo.finish}
+              key={todo.id}
+            />
+          ))}
+
+          {todoList.length === 0 && (
+            <Paper sx={{ padding: "15px 0px", textAlign: "center", fontSize: "15px" }}>
+              🥹 Please enter your to-do list.
+            </Paper>
+          )}
         </Box>
       </Paper>
+      <Box sx={{ flex: 1 }}></Box>
+      <Typography variant="caption" sx={{ textAlign: "center", padding: "16px 0px" }}>
+        © 2024 TODO. All Right Reserved
+      </Typography>
     </Container>
   );
 }

@@ -28,7 +28,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://silo9506.github.io/mui_todo/",
+  "homepage": "https://silo9506.github.io/todo/",
   "eslintConfig": {
     "extends": [
       "react-app",
